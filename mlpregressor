@@ -1,0 +1,22 @@
+from sklearn import svm
+import pandas as pd
+import numpy as np
+
+df = pd.read_csv('OnlineNewsPopularity.csv')
+df = df.drop('url', 1)
+df = df.drop(' timedelta',1)
+x = df[df.columns[0:58]]
+y = df[df.columns[-1]]
+
+x = np.asarray(x)
+y = np.asarray(y)
+tr_x = x[0:35000]
+tr_y = y[0:35000]
+
+val_x = x[35000:]
+val_y = y[35000:]
+
+clf = svm.SVR()
+clf.fit(tr_x, tr_y)
+#print( clf.score(val_x,val_y), df.shape, " ", x.shape, " ", y.shape)
+print(clf.predict(x[39643]))
